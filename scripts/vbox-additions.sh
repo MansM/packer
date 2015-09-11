@@ -1,6 +1,4 @@
-#!/bin/bash
-mount -t iso9660 -o loop /vagrant/VBoxGuestAdditions.iso /mnt
-
+mount -o loop VBoxGuestAdditions.iso /mnt
 # Install the drivers
 /mnt/VBoxLinuxAdditions.run
 

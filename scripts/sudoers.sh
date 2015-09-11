@@ -1,4 +1,4 @@
-!#bin/#!/usr/bin/env bash
+
 
 # Set up password-less sudo for the vagrant user
 echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/99_vagrant

@@ -37,7 +37,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_additions_path": "VBoxGuestAdditions.iso",
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{ user `PACKER_BOX_NAME` }}",
       "vboxmanage": [
@@ -54,6 +54,7 @@
         "scripts/debian-update.sh",
         "scripts/sudoers.sh",
         "scripts/vagrantuser.sh",
+        "scripts/vbox-additions.sh",
         "scripts/cleanupfinal.sh"
       ]
     }

@@ -1,4 +1,3 @@
-#!/bin/bash
 #sshkey
 mkdir ${rootfs}/home/vagrant/.ssh
 chmod 700 ${rootfs}/home/vagrant/.ssh
