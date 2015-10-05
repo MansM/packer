@@ -31,7 +31,7 @@
       "http_directory": "http",
       "iso_checksum": "9792020579824057723446a92ab97d50fdb7af15d265ff4be9081a963e36b3e3e6f44127766219320bc863c6a7ec378388a9d6faa7b51c3f74b259dc9049e071",
       "iso_checksum_type": "sha512",
-      "iso_url": "http://cdimage.debian.org/cdimage/archive/7.8.0/amd64/iso-cd/{{ user `PACKER_BOX_NAME` }}-netinst.iso",
+      "iso_url": "http://debian.apt-get.eu/cd-images/7.8.0/amd64/iso-cd/{{ user `PACKER_BOX_NAME` }}-netinst.iso",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_port": 22,
