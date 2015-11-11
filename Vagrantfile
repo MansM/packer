@@ -15,15 +15,18 @@ Vagrant.configure(2) do |config|
 #fix for some stdin: is not a tty annoyance
 
   config.vm.define "puppetmaster" do |puppetmaster|
-    puppetmaster.vm.box = "/Users/cybermans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
+    puppetmaster.vm.box = "/Users/Mans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
     puppetmaster.vm.hostname = "puppet"
+    puppetmaster.vm.provider "virtualbox" do |vb|
+      vb.name = "puppetmaster"
+    end
     puppetmaster.vm.network "private_network", ip: "192.168.50.4", virtualbox__intnet: true
     puppetmaster.vm.provision "shell", path: "vagrantscripts/debian-puppetinstall.sh"
     puppetmaster.vm.provision "shell", path: "vagrantscripts/debian-puppetmasterinstall.sh"
     puppetmaster.vm.provision "puppet_server" do |puppet|
       puppet.options = "--verbose --pluginsync"
     end
-    puppetmaster.vm.synced_folder "/Users/cybermans/Documents/puppet/", "/etc/puppet",  mount_options: ["dmode=777", "fmode=666"]
+    puppetmaster.vm.synced_folder "/Users/Mans/Documents/puppet/", "/etc/puppet",  mount_options: ["dmode=777", "fmode=666"]
   end
 
 #####
@@ -31,7 +34,7 @@ Vagrant.configure(2) do |config|
 #
 ######
   config.vm.define "puppetclient" do |puppetclient|
-    puppetclient.vm.box = "/Users/cybermans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
+    puppetclient.vm.box = "/Users/Mans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
     puppetclient.vm.hostname = "puppetclient.mans.local"
     puppetclient.vm.network "private_network", ip: "192.168.50.5", virtualbox__intnet: true
     puppetclient.vm.provision "shell", path: "vagrantscripts/debian-puppetinstall.sh"
@@ -47,8 +50,11 @@ Vagrant.configure(2) do |config|
 #
 #####
   config.vm.define "openhab" do |openhab|
-    openhab.vm.box = "/Users/cybermans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
+    openhab.vm.box = "/Users/Mans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
     openhab.vm.hostname = "openhab.mans.local"
+    openhab.vm.provider "virtualbox" do |vb|
+      vb.name = "openhab"
+    end
     openhab.vm.network "private_network", ip: "192.168.50.6", virtualbox__intnet: true
     openhab.vm.provision "shell", path: "vagrantscripts/debian-puppetinstall.sh"
     openhab.vm.provision "shell", inline: "echo \"192.168.50.4\tpuppet\" >> /etc/hosts"
