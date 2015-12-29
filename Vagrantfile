@@ -66,4 +66,25 @@ Vagrant.configure(2) do |config|
     end
   end
 
+#####
+#  r10k test puppetmaster
+#
+####
+config.vm.define "puppetmaster2" do |puppetmaster2|
+  puppetmaster2.vm.box = "/Users/Mans/Documents/packer/debian-7.8.0-amd64_virtualbox.box"
+  puppetmaster2.vm.hostname = "puppet"
+  puppetmaster2.vm.provider "virtualbox" do |vb|
+    vb.name = "puppetmaster2"
+    vb.customize ["modifyvm", :id, "--groups", "/puppet"]
+  end
+  puppetmaster2.vm.network "private_network", ip: "192.168.50.7", virtualbox__intnet: true
+  puppetmaster2.vm.network "forwarded_port", guest: 80, host: 8080
+  puppetmaster2.vm.provision "shell", path: "vagrantscripts/debian-puppetinstall.sh"
+  puppetmaster2.vm.provision "shell", path: "vagrantscripts/debian-puppetmasterinstall.sh"
+  #puppetmaster2.vm.provision "puppet_server" do |puppet|
+  #  puppet.options = "--verbose --pluginsync"
+  #end
+  #puppetmaster2.vm.synced_folder "/Users/Mans/Documents/projecten/puppet/", "/etc/puppet",  mount_options: ["dmode=777", "fmode=666"]
+end
+
 end

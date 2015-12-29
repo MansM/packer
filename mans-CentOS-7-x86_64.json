@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "PACKER_OS_FLAVOUR": "CentOS-7-x86_64",
+    "PACKER_BOX_NAME": "CentOS-7-x86_64"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-{{ user `PACKER_BOX_NAME` }}.cfg<enter>"
+      ],
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
+      "boot_wait": "10s",
+      "headless": false,
+      "disk_size": 25140,
+      "guest_os_type": "RedHat_64",
+      "output_directory": "/tmp/output-{{ user `PACKER_BOX_NAME` }}",
+      "http_directory": "http",
+      "iso_checksum": "9ed9ffb5d89ab8cca834afce354daa70a21dcb410f58287d6316259ff89758f5",
+      "iso_checksum_type": "sha256",
+      "iso_url": "http://linux.cs.uu.nl/centos/7.2.1511/isos/x86_64/{{ user `PACKER_BOX_NAME` }}-NetInstall-1511.iso",
+      "ssh_username": "root",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "guest_additions_path": "VBoxGuestAdditions.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `PACKER_BOX_NAME` }}",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/vagrantuser.sh",
+        "scripts/vbox-additions.sh",
+        "scripts/cleanup-centos.sh",
+        "scripts/cleanupfinal.sh"
+      ]
+    }
+  ],
+  "post-processors": [
+      {
+        "type": "vagrant",
+        "compression_level": "9",
+        "output": "/Users/Mans/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box"
+      }
+    ]
+}
