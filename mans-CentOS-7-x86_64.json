@@ -1,7 +1,11 @@
 {
   "variables": {
     "PACKER_OS_FLAVOUR": "CentOS-7-x86_64",
-    "PACKER_BOX_NAME": "CentOS-7-x86_64"
+    "PACKER_BOX_NAME": "CentOS-7-x86_64",
+    "ATLAS_TOKEN": "{{env `ATLAS_TOKEN`}}"
+  },
+  "push": {
+    "name": "Mans-CentOS-7"
   },
   "builders": [
     {
@@ -9,6 +13,7 @@
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-{{ user `PACKER_BOX_NAME` }}.cfg<enter>"
       ],
+      "name": "Mans-CentOS-7",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
       "boot_wait": "10s",
       "headless": false,
@@ -49,6 +54,17 @@
         "type": "vagrant",
         "compression_level": "9",
         "output": "/Users/Mans/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box"
+      },
+      {
+        "type": "atlas",
+        "token": "{{user `ATLAS_TOKEN`}}",
+        "artifact": "mansm/CentOS-7",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "created_at": "{{timestamp}}",
+          "provider": "virtualbox",
+          "version": "0.3.0"
+        }
       }
     ]
 }
