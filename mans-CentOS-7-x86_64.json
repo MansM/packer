@@ -17,7 +17,7 @@
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
       "boot_wait": "10s",
       "headless": false,
-      "disk_size": 25140,
+      "disk_size": 40960,
       "guest_os_type": "RedHat_64",
       "output_directory": "/tmp/output-{{ user `PACKER_BOX_NAME` }}",
       "http_directory": "http",
@@ -42,18 +42,20 @@
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "scripts/vagrantuser.sh",
-        "scripts/vbox-additions.sh",
-        "scripts/cleanup-centos.sh",
-        "scripts/cleanupfinal.sh"
+        "scripts/10-vagrantuser.sh",
+        "scripts/20-vbox-additions.sh",
+        "scripts/50-centos-hardening.sh",
+        "scripts/60-cleanup-centos.sh",
+        "scripts/70-cleanupfinal.sh"
       ]
     }
   ],
   "post-processors": [
-      {
+      [{
         "type": "vagrant",
         "compression_level": "9",
-        "output": "/Users/Mans/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box"
+        "output": "/Users/Mans/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box",
+        "keep_input_artifact": false
       },
       {
         "type": "atlas",
@@ -63,8 +65,8 @@
         "metadata": {
           "created_at": "{{timestamp}}",
           "provider": "virtualbox",
-          "version": "0.3.0"
+          "version": ""
         }
-      }
+      }]
     ]
 }

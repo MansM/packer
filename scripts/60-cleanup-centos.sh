@@ -1,4 +1,4 @@
-# # remove interface persistent
+# remove interface persistent
 # echo "==> Removing static network interfaces"
 # rm -f /etc/udev/rules.d/70-persistent-net.rules
 
@@ -6,8 +6,8 @@
 # do
 #     if [ "$(basename ${ifcfg})" != "ifcfg-lo" ]
 #     then
-#         sed -i '/^UUID/d'   ${ifcfg})
-#         sed -i '/^HWADDR/d' ${ifcfg})
+#         sed -i '/^UUID/d'   /etc/sysconfig/network-scripts/ifcfg-enp0s3
+#         sed -i '/^HWADDR/d' /etc/sysconfig/network-scripts/ifcfg-enp0s3
 #     fi
 # done
 
