@@ -51,11 +51,11 @@
       "type": "shell",
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "scripts/debian-update.sh",
-        "scripts/sudoers.sh",
-        "scripts/vagrantuser.sh",
-        "scripts/vbox-additions.sh",
-        "scripts/cleanupfinal.sh"
+        "scripts/08-debian-update.sh",
+        "scripts/09-sudoers.sh",
+        "scripts/10-vagrantuser.sh",
+        "scripts/20-vbox-additions.sh",
+        "scripts/70-cleanupfinal.sh"
       ]
     }
   ],
