@@ -6,7 +6,6 @@ Vagrant.configure(2) do |config|
     testmachine.vm.hostname = "test-Centos"
     testmachine.vm.provider "virtualbox" do |vb|
       vb.name = "testmachine"
-      vb.customize ["modifyvm", :id, "--groups", "/puppet"]
     end
   end
 
