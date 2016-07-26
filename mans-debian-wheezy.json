@@ -60,10 +60,22 @@
     }
   ],
   "post-processors": [
-      {
+      [{
         "type": "vagrant",
         "compression_level": "9",
-        "output": "{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box"
-      }
+        "output": "/Users/Mans/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box",
+        "keep_input_artifact": false
+      },
+      {
+        "type": "atlas",
+        "token": "{{user `ATLAS_TOKEN`}}",
+        "artifact": "mansm/Debian-Wheezy",
+        "artifact_type": "vagrant.box",
+        "metadata": {
+          "created_at": "{{timestamp}}",
+          "provider": "virtualbox",
+          "version": ""
+        }
+      }]
     ]
 }
