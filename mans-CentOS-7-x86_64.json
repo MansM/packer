@@ -45,6 +45,8 @@
         "scripts/10-vagrantuser.sh",
         "scripts/20-vbox-additions.sh",
         "scripts/50-centos-hardening.sh",
+        "scripts/51-centos-hardening-ssh.sh",
+        "scripts/52-centos-hardening-account.sh",
         "scripts/60-cleanup-centos.sh",
         "scripts/70-cleanupfinal.sh"
       ]

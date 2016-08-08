@@ -1,7 +1,7 @@
 Vagrant.configure(2) do |config|
-
+  config.ssh.insert_key = false
   #config.vm.box = "centos/7"
-  config.vm.box = "/Users/Mans/Dropbox/boxfiles/CentOS-7-x86_64_virtualbox.box"
+  config.vm.box = "mansm/CentOS-7"
   config.vm.define "testmachine" do |testmachine|
     testmachine.vm.hostname = "test-Centos"
     testmachine.vm.provider "virtualbox" do |vb|
