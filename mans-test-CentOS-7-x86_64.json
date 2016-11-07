@@ -11,7 +11,7 @@
   "builders": [
     {
       "type": "virtualbox-ovf",
-      "source_path": "{{ user `HOME_DIR` }}/.vagrant.d/boxes/mansm-VAGRANTSLASH-CentOS-7/0.16/virtualbox/box.ovf",
+      "source_path": "{{ user `HOME_DIR` }}/.vagrant.d/boxes/mansm-VAGRANTSLASH-CentOS-7/0.25/virtualbox/box.ovf",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "ssh_wait_timeout": "150s",

@@ -5,7 +5,7 @@
     "ATLAS_TOKEN": "{{env `ATLAS_TOKEN`}}"
   },
   "push": {
-    "name": "Mans-CentOS-7"
+    "name": "Mans-CentOS-7-secure"
   },
   "builders": [
     {
@@ -13,7 +13,7 @@
       "boot_command": [
         "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-{{ user `PACKER_BOX_NAME` }}.cfg<enter>"
       ],
-      "name": "Mans-CentOS-7",
+      "name": "Mans-CentOS-7-secure",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
       "boot_wait": "10s",
       "headless": false,
@@ -44,6 +44,9 @@
       "scripts": [
         "scripts/10-vagrantuser.sh",
         "scripts/20-vbox-additions.sh",
+        "scripts/50-centos-hardening.sh",
+        "scripts/51-centos-hardening-ssh.sh",
+        "scripts/52-centos-hardening-account.sh",
         "scripts/60-cleanup-centos.sh",
         "scripts/70-cleanupfinal.sh"
       ]
@@ -59,7 +62,7 @@
       {
         "type": "atlas",
         "token": "{{user `ATLAS_TOKEN`}}",
-        "artifact": "mansm/CentOS-7",
+        "artifact": "mansm/CentOS-7-secure",
         "artifact_type": "vagrant.box",
         "metadata": {
           "created_at": "{{timestamp}}",
