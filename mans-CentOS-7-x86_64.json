@@ -53,7 +53,7 @@
       [{
         "type": "vagrant",
         "compression_level": "9",
-        "output": "/Users/Mans/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box",
+        "output": "/Users/mansmatulewicz/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box",
         "keep_input_artifact": false
       },
       {
