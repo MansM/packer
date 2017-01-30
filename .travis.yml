@@ -7,7 +7,8 @@ install:
   - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
   - sudo apt-get update
   - sudo apt-get -y --force-yes install linux-headers-`uname -r`
-  - sudo apt-get install -y vagrant virtualbox virtualbox-dkms
+  - sudo apt-get install -y vagrant virtualbox virtualbox-dkms virtualbox-guest-additions-iso
+
 
 script:
   - packer build -debug mans-CentOS-7-x86_64.json
