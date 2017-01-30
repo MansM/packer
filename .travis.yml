@@ -9,4 +9,4 @@ install:
 
 
 script:
-  - travis_wait 999 packer build travis.json
+  - travis_wait 999 packer build -machine-readable travis.json

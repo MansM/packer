@@ -29,7 +29,7 @@
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "vm_name": "{{ user `PACKER_BOX_NAME` }}",
-      "accelerator": "kvm",
+      "accelerator": "none",
       "net_device": "virtio-net",
       "disk_interface": "virtio"
     }
