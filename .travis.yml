@@ -1,0 +1,12 @@
+language: universe
+sudo: required
+dist: trusty
+
+install:
+  - echo "deb http://download.virtualbox.org/virtualbox/debian trusty contrib" >> /etc/apt/sources.list
+  - wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+  - apt-get update
+  - apt-get install -y vagrant virtualbox
+
+script:
+  - packer build mans-CentOS-7-x86_64.json
