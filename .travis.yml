@@ -10,4 +10,5 @@ install:
   - sudo apt-get install -y vagrant virtualbox virtualbox-dkms
 
 script:
-  - packer build mans-CentOS-7-x86_64.json -debug
+  - ls
+  - packer build packer/mans-CentOS-7-x86_64.json -debug
