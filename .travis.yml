@@ -11,4 +11,4 @@ install:
 
 script:
   - ls
-  - packer build packer/mans-CentOS-7-x86_64.json -debug
+  - packer build packer/mans-CentOS-7-x86_64.json
