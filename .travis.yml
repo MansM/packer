@@ -10,4 +10,4 @@ install:
 
 
 script:
-  - travis_wait 999 packer build travis.json
+  - travis_wait 999 /usr/bin/packer build travis.json
