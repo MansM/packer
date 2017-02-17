@@ -3,12 +3,12 @@ sudo: required
 dist: trusty
 
 install:
-  # - sudo apt-get update
+  - sudo apt-get update
   # - sudo apt-get -y --force-yes install linux-headers-`uname -r`
-  # - sudo apt-get install -y qemu-system-x86 qemu-kvm curl unzip
-  # - sudo curl -L  -o packer.zip https://releases.hashicorp.com/packer/0.12.2/packer_0.12.2_linux_amd64.zip && sudo unzip packer.zip -d /usr/bin
+  - sudo apt-get install -y qemu-system-x86 qemu-kvm curl unzip
+  - sudo curl -L  -o packer.zip https://releases.hashicorp.com/packer/0.12.2/packer_0.12.2_linux_amd64.zip && sudo unzip packer.zip -d /usr/bin
 
 
 script:
   - for f in *.json; do echo $f; packer validate  $f; done
- # - travis_wait 999 /usr/bin/packer build travis.json
+  - travis_wait 999 PACKER_LOG=1 /usr/bin/packer build travis.json
