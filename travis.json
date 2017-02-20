@@ -31,7 +31,11 @@
       "vm_name": "{{ user `PACKER_BOX_NAME` }}",
       "accelerator": "none",
       "net_device": "virtio-net",
-      "disk_interface": "virtio"
+      "disk_interface": "virtio",
+      "qemuargs": [
+        ["-m", "512"],
+        ["-smp", "2"]
+    ]
     }
   ],
   "provisioners": [
