@@ -32,9 +32,12 @@
       "accelerator": "none",
       "net_device": "virtio-net",
       "disk_interface": "virtio",
+      "vnc_port_min": 5999,
+      "vnc_port_max": 5999,
+      "vnc_bind_address": "0.0.0.0",
       "qemuargs": [
-        ["-m", "512"],
-        ["-smp", "2"]
+        ["-m", "2048M"],
+        ["-smp", "2,sockets=2,cores=1,threads=1"]
     ]
     }
   ],
