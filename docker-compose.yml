@@ -1,0 +1,12 @@
+version: '2'
+services:
+  packerbuild:
+    build: docker
+    ports:
+      - "5999:5999"
+    volumes:
+      - ./http:/root/http
+      - ./packer_cache:/root/packer_cache
+      - ./scripts:/root/scripts
+      - ./travis.json:/root/travis.json
+    command: bash -c "time packer build travis.json"
