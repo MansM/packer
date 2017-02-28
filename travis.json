@@ -11,7 +11,7 @@
     {
       "type": "qemu",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-{{ user `PACKER_BOX_NAME` }}.cfg<enter>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-{{ user `PACKER_BOX_NAME` }}-travis.cfg<enter>"
       ],
       "name": "Mans-CentOS-7",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p",
