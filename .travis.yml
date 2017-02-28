@@ -13,4 +13,4 @@ install:
 script:
   - for f in *.json; do echo $f; packer validate  $f; done
   - export PACKER_LOG=1
-  - travis_wait /usr/bin/packer build travis.json
+  - travis_wait 999 /usr/bin/packer build travis.json
