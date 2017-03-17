@@ -2,7 +2,8 @@
   "variables": {
     "PACKER_OS_FLAVOUR": "CentOS-7-x86_64",
     "PACKER_BOX_NAME": "CentOS-7-x86_64",
-    "ATLAS_TOKEN": "{{env `ATLAS_TOKEN`}}"
+    "ATLAS_TOKEN": "{{env `ATLAS_TOKEN`}}",
+    "ATLAS_CHANGELOG": "{{env `ATLAS_CHANGELOG`}}"
   },
   "push": {
     "name": "Mans-CentOS-7"
@@ -64,6 +65,7 @@
         "metadata": {
           "created_at": "{{timestamp}}",
           "provider": "virtualbox",
+          "description": "Clean Centos 7 with VBoxGuestAdditions v{{user `ATLAS_CHANGELOG`}}",
           "version": ""
         }
       }]
