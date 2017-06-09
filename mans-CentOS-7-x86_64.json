@@ -58,16 +58,11 @@
         "keep_input_artifact": false
       },
       {
-        "type": "atlas",
-        "token": "{{user `ATLAS_TOKEN`}}",
-        "artifact": "mansm/CentOS-7",
-        "artifact_type": "vagrant.box",
-        "metadata": {
-          "created_at": "{{timestamp}}",
-          "provider": "virtualbox",
-          "description": "Clean Centos 7 with VBoxGuestAdditions v{{user `ATLAS_CHANGELOG`}}",
-          "version": ""
-        }
+        "type": "vagrant-cloud",
+        "access_token": "{{user `ATLAS_TOKEN`}}",
+        "box_tag": "mansm/CentOS-7",
+        "version": "1.0.{{timestamp}}",
+        "version_description": "Clean Centos 7 with VBoxGuestAdditions v{{user `ATLAS_CHANGELOG`}}, build at {{timestamp}}"
       }]
     ]
 }
