@@ -1,0 +1,83 @@
+{
+  "variables": {
+    "PACKER_OS_FLAVOUR": "ubuntu",
+    "PACKER_BOX_NAME": "ubuntu1804",
+    "ATLAS_TOKEN": "{{env `ATLAS_TOKEN`}}",
+    "HOME_DIR": "{{env `HOME`}}",
+    "ATLAS_CHANGELOG": "{{env `ATLAS_CHANGELOG`}}"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "boot_command": [
+        "<tab><wait><f6><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "linux noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-{{ user `PACKER_BOX_NAME` }}.cfg ",
+        "debian-installer=en_US ",
+        "grub-installer/bootdev=/dev/sda ",
+        "auto ",
+        "locale=en_US ",
+        "keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA ",
+        "console-keymaps-at/keymap=us ",
+        "kbd-chooser/method=us ",
+        "hostname={{ .Name }} ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "initrd=/initrd.gz --<enter>"
+      ],
+      "boot_wait": "10s",
+      "headless": false,
+      "disk_size": 25140,
+      "hard_drive_interface": "sata",
+      "guest_os_type": "Ubuntu_64",
+      "output_directory": "output/{{ user `PACKER_BOX_NAME` }}",
+      "http_directory": "http",
+      "iso_checksum_url": "http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/SHA1SUMS",
+      "iso_checksum_type": "sha1",
+      "iso_url": "http://archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/current/images/netboot/mini.iso",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_wait_timeout": "10000s",
+      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/shutdown -hP now",
+      "guest_additions_path": "VBoxGuestAdditions.iso",
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `PACKER_BOX_NAME` }}",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "1024" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "scripts/08-debian-update.sh",
+        "scripts/09-sudoers.sh",
+        "scripts/10-vagrantuser.sh",
+        "scripts/20-vbox-additions.sh",
+        "scripts/61-cleanup-ubuntu.sh",
+        "scripts/70-cleanupfinal.sh"
+      ]
+    }
+  ],
+  "post-processors": [
+      [{
+        "type": "vagrant",
+        "compression_level": "9",
+        "output": "{{ user `HOME_DIR` }}/Dropbox/boxfiles/{{ user `PACKER_BOX_NAME` }}_{{.Provider}}.box",
+        "keep_input_artifact": true
+      },
+      {
+        "type": "vagrant-cloud",
+        "access_token": "{{user `ATLAS_TOKEN`}}",
+        "box_tag": "mansm/ubuntu1804",
+        "version": "1.0.{{timestamp}}",
+        "version_description": "Clean Ubuntu1804 with VBoxGuestAdditions v{{user `ATLAS_CHANGELOG`}}, build at {{timestamp}}"
+      }]
+    ]
+}
